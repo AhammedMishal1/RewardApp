@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {
   responsiveHeight,
@@ -9,10 +9,22 @@ import {Colors, Fonts, Icons, Images} from '../../constants';
 import {FormButton, FormInput, HomeHeader, Separator} from '../../components';
 import {MotiView} from 'moti'
 import { Easing } from 'react-native-reanimated';
+import RNSimpleOpenvpn, {
+  addVpnStateListener,
+  removeVpnStateListener,
+} from 'react-native-simple-openvpn';
 
 const _size = responsiveWidth(30);
 
-const EnableVpn = ({onConnected}) => {
+const EnableVpn = ({onConnected,navigation,serverBtn,serverName,connectBtn}) => {
+  const onHandleConnected = () =>{
+    connectBtn()
+    onConnected()
+    setTimeout(() => {
+      navigation.navigate('Advertisement')
+    }, 8000);  
+  }
+
   return (
     <View>
       {/* Vpn enable container */}
@@ -34,7 +46,7 @@ const EnableVpn = ({onConnected}) => {
       <View style={styles.buttonContainer}>
         {/* connect btn */}
         <FormButton 
-          btnPress={onConnected}
+          btnPress={onHandleConnected}
           buttonTitle={'Connect'}
           height={responsiveWidth(12)}
           width={responsiveWidth(80)}
@@ -46,10 +58,10 @@ const EnableVpn = ({onConnected}) => {
       <Separator height={responsiveWidth(5)} />
 
       {/* server btn */}
-      <TouchableOpacity activeOpacity={0.5} style={styles.serverBtnView}>
+      <TouchableOpacity onPress={serverBtn} activeOpacity={0.5} style={styles.serverBtnView}>
         <Image source={Images.server} style={styles.serverImage} />
         <Separator width={responsiveWidth(4)} />
-        <Text style={styles.serverText}>Servers</Text>
+        <Text style={styles.serverText}>{serverName}</Text>
       </TouchableOpacity>
     </View>
   );

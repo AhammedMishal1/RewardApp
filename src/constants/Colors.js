@@ -8,6 +8,8 @@ export default {
   PRIMARY_ORANGE: '#FF9100',
   PINK: '#EF5280',
   LIGHT_RED: '#F3616A',
+  LIGHT_BLUE: '#308cda',
+
   
   CYANDARK: '#4E646C',
   CINDER: '#22292E',

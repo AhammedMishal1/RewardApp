@@ -12,7 +12,12 @@ import {Easing} from 'react-native-reanimated';
 
 const _size = responsiveWidth(30);
 
-const Connected = ({onConnected}) => {
+const Connected = ({onConnected,disconnectBtn}) => {
+
+  const handleDisconnect = () =>{
+    disconnectBtn()
+    onConnected()
+  }
 
   return (
     <View>
@@ -109,7 +114,7 @@ const Connected = ({onConnected}) => {
         {/* disconnect btn */}
         <FormButton
           buttonTitle={'Disconnect'}
-          btnPress={onConnected}
+          btnPress={handleDisconnect}
           height={responsiveWidth(12)}
           width={responsiveWidth(80)}
           borderRadius={responsiveWidth(2.5)}
